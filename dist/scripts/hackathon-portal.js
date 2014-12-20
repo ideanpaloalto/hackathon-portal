@@ -56,8 +56,8 @@ angular.module('hackApp', [
 .constant('emptyImagePath', hack.rootPath + '/dist/images/empty.gif')
 .constant('dataPath', hack.rootPath + '/data')
 
-.constant('androidExampleUrl', 'http://github-raw-cors-proxy.herokuapp.com/ericsson-innovate/asdp-api-sampler-android/master')
-.constant('iosExampleUrl', 'http://github-raw-cors-proxy.herokuapp.com/ericsson-innovate/asdp-api-sampler-ios/master')
+.constant('androidExampleUrl', 'http://github-raw-cors-proxy.herokuapp.com/ideanpaloalto/asdp-api-sampler-android/master')
+.constant('iosExampleUrl', 'http://github-raw-cors-proxy.herokuapp.com/ideanpaloalto/asdp-api-sampler-ios/master')
 .constant('webExampleUrl', hack.rootPath)
 
 .constant('luceneDefinitionUrl', 'http://lucene.apache.org/core/2_9_4/queryparsersyntax.html')
@@ -67,32 +67,32 @@ angular.module('hackApp', [
     platform: 'android',
     humanReadablePlatform: 'Android',
     iconUrl: hack.rootPath + '/dist/images/android-icon.png',
-    repoUrl: 'https://github.com/ericsson-innovate/asdp-api-sampler-android',
-    readmeUrl: 'http://github-raw-cors-proxy.herokuapp.com/ericsson-innovate/asdp-api-sampler-android/master/README.md',
+    repoUrl: 'https://github.com/ideanpaloalto/asdp-api-sampler-android',
+    readmeUrl: 'http://github-raw-cors-proxy.herokuapp.com/ideanpaloalto/asdp-api-sampler-android/master/README.md',
     readmeText: 'Loading README...'
   },
   {
     platform: 'ios',
     humanReadablePlatform: 'iOS',
     iconUrl: hack.rootPath + '/dist/images/ios-icon.png',
-    repoUrl: 'https://github.com/ericsson-innovate/asdp-api-sampler-ios',
-    readmeUrl: 'http://github-raw-cors-proxy.herokuapp.com/ericsson-innovate/asdp-api-sampler-ios/master/README.md',
+    repoUrl: 'https://github.com/ideanpaloalto/asdp-api-sampler-ios',
+    readmeUrl: 'http://github-raw-cors-proxy.herokuapp.com/ideanpaloalto/asdp-api-sampler-ios/master/README.md',
     readmeText: 'Loading README...'
   },
   {
     platform: 'web',
     humanReadablePlatform: 'Web',
     iconUrl: hack.rootPath + '/dist/images/web-icon.png',
-    repoUrl: 'https://github.com/ericsson-innovate/asdp-api-sampler-javascript',
-    readmeUrl: 'http://github-raw-cors-proxy.herokuapp.com/ericsson-innovate/asdp-api-sampler-javascript/master/README.md',
+    repoUrl: 'https://github.com/ideanpaloalto/asdp-api-sampler-javascript',
+    readmeUrl: 'http://github-raw-cors-proxy.herokuapp.com/ideanpaloalto/asdp-api-sampler-javascript/master/README.md',
     readmeText: 'Loading README...'
   },
   {
     platform: 'angularjs',
     humanReadablePlatform: 'AT&T Drive UI Kit',
     iconUrl: hack.rootPath + '/dist/images/angularjs-icon.png',
-    repoUrl: 'https://github.com/ericsson-innovate/ATT-Drive-UI-Framework',
-    readmeUrl: 'https://raw.githubusercontent.com/ericsson-innovate/ATT-Drive-UI-Framework/master/README.md',
+    repoUrl: 'https://github.com/ideanpaloalto/ATT-Drive-UI-Framework',
+    readmeUrl: 'https://raw.githubusercontent.com/ideanpaloalto/ATT-Drive-UI-Framework/master/README.md',
     readmeText: 'Loading README...'
   }
 ])
