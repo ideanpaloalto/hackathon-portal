@@ -1,0 +1,54 @@
+{
+  "id": "2.16.5-update-vehicle-users",
+  "docNumber": "2.16.5",
+  "displayWeight": "295",
+  "name": "Update Vehicle Users",
+  "description": "Update list of vehicle users.",
+  "categories": ["know-car"],
+  "subCategories": [],
+  "resourceTable": {
+    "Route": "/vehicles/v1/users/update",
+    "HTTP Verb": ["PUT", "POST"],
+    "Authentication": "Basic Authentication"
+  },
+  "parameters": {
+    "requestBody": [
+      {
+        "key": "vin",
+        "type": "String",
+        "required": true,
+        "description": "Vehicle identification number"
+      },
+      {
+        "key": "users",
+        "type": "String List",
+        "required": true,
+	"defaultVal" : "[\"12dde34e222a2d\",\"12dde34e222a2e\"]",
+        "description": "User IDs shall be added to the list of vehicle users."
+      }
+    ]
+  },
+  "errors": [
+    400,
+    401,
+    403,
+    404,
+    500
+  ],
+  "examples": [
+    {
+      "type": "request",
+      "verb": "POST",
+      "route": "/vehicles/v1/users/update",
+      "body": {
+        "vin": "~vin~",
+        "users": ["12dde34e222a2d","12dde34e222a2e"]
+      }
+    }
+  ],
+  "codeExamples": {
+    "android": "/app/src/com/idean/atthack/network/RequestHelper.java",
+    "ios": "/ASDP%20Sampler/Network/ASDPRequestManager.m",
+    "web": "/dist/data/web-examples.js"
+  }
+}
