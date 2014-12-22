@@ -7,20 +7,57 @@ $api-list-item-body-content-padding-top: 34px - $api-list-item-body-content-marg
 $verb-width: 100px;
 $verb-margin-right: 20px;
 
-$card-tab-height: 30px;
+$card-tab-height: 50px;
 $card-tab-border-width: 10px;
-$card-tab-top-margin: 10px;
+$card-tab-top-margin: 20px;
+$card-tab-top-padding: 14px;
+$card-tab-font-size: 20px;
 
-li[api-list-item] {
-  position: relative;
+
+li[api-list-item].selected {
+
+  .api-list-item-header{
+    color: $gray-8;
+    
+    .verb{
+      color: $verb-active-color;
+      background-color: $verb-active-background-color;
+    }
+
+    .name{
+
+      &:after{
+        content: "-";
+        padding: 0 0 0 5.5px;
+        color: $accent-magenta;
+        border-color: $accent-magenta;
+        transition: $hover-transition;
+      }
+    }
+  }
+
+  .api-list-item-body {
+    height: 900px;
+  }
 }
 
-/* Clearfix */
-li[api-list-item]:after {
-  content: "";
-  display: table;
-  clear: both;
+
+li[api-list-item].none-selected .api-list-item-header {
+  color: $gray-8;
+  
+  .verb {
+    color: $verb-active-color;
+    background-color: $verb-active-background-color;
+  }
+
+  .name{
+
+    &:after{
+      border-color: $gray-8;
+    }
+  }
 }
+
 
 .api-list-item-header {
   position: relative;
@@ -29,7 +66,7 @@ li[api-list-item]:after {
   overflow-y: hidden;
   vertical-align: middle;
   cursor: pointer;
-  color: #ccc;
+  color: #ccc; 
   transition: color 0.15s;
   
   div {
@@ -40,7 +77,7 @@ li[api-list-item]:after {
     @include code-font();
     float: left;
     width: $verb-width;
-    color: $verb-inactive-color;
+    color: $white;
     background-color: $verb-inactive-background-color;
     text-align: center;
     transition: color 0.15s, background-color 0.15s;
@@ -51,25 +88,32 @@ li[api-list-item]:after {
     @include code-font();
     float: left;
     margin-left: $verb-margin-right;
+    font-size: 22px;
   }
 
   .name {
     position: absolute;
     right: 0;
     padding-left: 20px;
+    font-size: 25px;
+
+    &:after {
+      content: "+";
+      display: inline-block;
+      position: relative;
+      margin-left: 30px;
+      padding: 1px 0 0 4px;
+      width: 28px;
+      height: 28px;
+      line-height: .99;
+      vertical-align: middle;
+      border-radius: 14px;
+      border: 2px solid $gray-9;
+      transition: all .25s ease;
+    }
   }
 }
 
-li[api-list-item].selected .api-list-item-header,
-li[api-list-item].none-selected .api-list-item-header {
-  color: $gray-8;
-}
-
-li[api-list-item].selected .api-list-item-header>.verb,
-li[api-list-item].none-selected .api-list-item-header>.verb {
-  color: $verb-active-color;
-  background-color: $verb-active-background-color;
-}
 
 .api-list-item-body {
   clear: both;
@@ -81,22 +125,29 @@ li[api-list-item].none-selected .api-list-item-header>.verb {
   
   api-specification-card, api-example-card, api-try-it-card {
     height: calc(100% - #{$api-list-item-body-content-margin-top + $card-tab-height + $card-tab-border-width + $api-list-item-margin + $divider-border-width + $api-list-item-body-content-padding-top + $api-list-item-body-content-padding-bottom});
-    margin-top: $api-list-item-body-content-margin-top;
-    padding: $api-list-item-body-content-padding-top 0 $api-list-item-body-content-padding-bottom;
     overflow-x: visible;
     overflow-y: auto;
+    border: 2px solid $gray-11;
+
+    div{
+      margin: 25px 50px;
+    }
   }
-}
 
-li[api-list-item].selected .api-list-item-body {
-  height: 900px;
-}
+  .card-tabs {
 
-.card-tabs {
+    .card-tab {
+      font-size: $card-tab-font-size;
+      height: $card-tab-height;
+      margin-top: $card-tab-top-margin;
+      padding-top: $card-tab-top-padding;
+      text-align: center;
+      transition: $hover-transition;
 
-  .card-tab {
-    height: $card-tab-height;
-    border-bottom-width: $card-tab-border-width;
-    margin-top: $card-tab-top-margin;
+      &:hover{
+        color: $accent-magenta;
+        transition: $hover-transition;
+      }
+    }
   }
 }

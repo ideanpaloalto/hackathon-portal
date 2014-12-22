@@ -409,9 +409,6 @@ angular.module('hackController', [])
   $scope.hackState.handleCategoryTabClick = handleCategoryTabClick;
 
   // ---  --- //
-  $scope.test = function( el ){
-    console.log( el );
-  };
 
   function handleStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     if (toState.name === 'api-documentation') {
@@ -1209,50 +1206,6 @@ angular.module('apiExampleCardDirective', [])
 
 'use strict';
 
-angular.module('apiListDirective', [])
-
-.constant('apiListTemplatePath', hack.rootPath + '/dist/templates/components/api-list/api-list.html')
-
-/**
- * @ngdoc directive
- * @name apiList
- * @requires HackApi
- * @requires apiListTemplatePath
- * @description
- *
- * A footer list used for displaying a list of navigation links.
- */
-.directive('apiList', function ($rootScope, HackApi, apiListTemplatePath) {
-  return {
-    restrict: 'E',
-    scope: {
-      category: '='
-    },
-    templateUrl: apiListTemplatePath,
-    link: function (scope, element, attrs) {
-      scope.apiListState = {};
-      scope.apiListState.apiData = [];
-      scope.apiListState.selectedItemId = null;
-
-      HackApi.getAllApiData()
-          .then(function (apiData) {
-            scope.apiListState.apiData = apiData;
-
-            if ($rootScope.selectedApi != null) {
-              scope.apiListState.selectedItemId = $rootScope.selectedApi.replace(/_/g, '.');
-              console.log(scope.apiListState.selectedItemId);
-            }
-          });
-
-      scope.$watch('category', function () {
-        scope.apiListState.selectedItemId = null;
-      });
-    }
-  };
-});
-
-'use strict';
-
 angular.module('apiListItemDirective', [])
 
 .constant('apiListItemTemplatePath', hack.rootPath + '/dist/templates/components/api-list-item/api-list-item.html')
@@ -1313,6 +1266,50 @@ angular.module('apiListItemDirective', [])
         
         $state.go(targetRef);
       };
+    }
+  };
+});
+
+'use strict';
+
+angular.module('apiListDirective', [])
+
+.constant('apiListTemplatePath', hack.rootPath + '/dist/templates/components/api-list/api-list.html')
+
+/**
+ * @ngdoc directive
+ * @name apiList
+ * @requires HackApi
+ * @requires apiListTemplatePath
+ * @description
+ *
+ * A footer list used for displaying a list of navigation links.
+ */
+.directive('apiList', function ($rootScope, HackApi, apiListTemplatePath) {
+  return {
+    restrict: 'E',
+    scope: {
+      category: '='
+    },
+    templateUrl: apiListTemplatePath,
+    link: function (scope, element, attrs) {
+      scope.apiListState = {};
+      scope.apiListState.apiData = [];
+      scope.apiListState.selectedItemId = null;
+
+      HackApi.getAllApiData()
+          .then(function (apiData) {
+            scope.apiListState.apiData = apiData;
+
+            if ($rootScope.selectedApi != null) {
+              scope.apiListState.selectedItemId = $rootScope.selectedApi.replace(/_/g, '.');
+              console.log(scope.apiListState.selectedItemId);
+            }
+          });
+
+      scope.$watch('category', function () {
+        scope.apiListState.selectedItemId = null;
+      });
     }
   };
 });
@@ -1570,14 +1567,21 @@ angular.module('apiDocumentationController', [])
  *
  * Controller for the API Documentation page.
  */
-.controller('ApiDocumentationCtrl', function ($scope, $state, $rootScope) {
+.controller('ApiDocumentationCtrl', function ($scope, $state) {
   var url =  $state.current.url;
   var children = ['/know-driver', '/know-car', '/control-car'];
+  var i = children.indexOf(url);
+  $scope.isSelected;
 
-  if( children.indexOf(url) >= 0 || $rootScope.isSelected === true ){
-    $scope.isSelected = true;
-  } else {
-    $scope.isSelected = false;
+  if( url === children[i] ){
+    if( children.indexOf(url) >= 0 ){
+      $scope.isSelected = true;
+    } else {
+      $scope.isSelected = false;
+    }
+
+    console.log(children.indexOf(url) >= 0);
+    console.log('$scope.isSelected:', $scope.isSelected);
   }
 });
 
