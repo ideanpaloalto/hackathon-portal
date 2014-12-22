@@ -367,12 +367,13 @@ li[api-list-item].none-selected .api-list-item-header {
   .api-list-item-header .verb {
     float: left;
     width: 100px;
+    font-size: 16px;
     color: white;
     background-color: #f8c4d7;
     text-align: center;
     transition: color 0.15s, background-color 0.15s;
     border-radius: 10px;
-    text-shadow: 0 1px 3px #666666; }
+    text-shadow: 0 1px 3px #333333; }
   .api-list-item-header .route {
     font-family: Consolas, Monaco, 'Andale Mono', monospace;
     float: left;
@@ -629,15 +630,18 @@ api-list:after {
     overflow: hidden;
     z-index: 2;
     transition: background-image 1s; }
-    #banner #image-panel h1 {
-      font-size: 80px;
-      color: #d51b5d; }
     #banner #image-panel .question-set {
       position: absolute;
-      top: 0;
+      top: -16px;
       left: 0;
       z-index: 10;
-      width: 1000px; }
+      width: 1100px; }
+      #banner #image-panel .question-set h1.main {
+        font-size: 80px;
+        color: #d51b5d; }
+      #banner #image-panel .question-set h4.sub {
+        font-family: 'ericsson_capitalregular', sans-serif;
+        font-size: 40px; }
     #banner #image-panel #hero-screen {
       position: absolute;
       top: 0px;

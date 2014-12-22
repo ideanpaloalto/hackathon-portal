@@ -76,12 +76,13 @@ li[api-list-item].none-selected .api-list-item-header {
   .verb {
     float: left;
     width: $verb-width;
+    font-size: 16px;
     color: $white;
     background-color: $verb-inactive-background-color;
     text-align: center;
     transition: color 0.15s, background-color 0.15s;
     border-radius: $border-radius;
-    text-shadow: 0 1px 3px $gray-4;
+    text-shadow: 0 1px 3px $gray-5;
   }
 
   .route {

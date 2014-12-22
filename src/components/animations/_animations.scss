@@ -14,7 +14,7 @@
 	}
 
 	#image-panel {
-		font-family: 'ericsson_capitalregular', sans-serif;
+		font-family: $ericsson-font;
 	  position: absolute;
 	  top: 0; left: -100%; right: -100%;
 	  margin: auto;
@@ -24,17 +24,23 @@
 	  z-index: 2;
 	  transition: background-image 1s;
 
-		h1{
-			font-size: 80px;
-			color: $accent-magenta;
-		}
 
 		.question-set {
 			position: absolute;
-			top: 0;
+			top: -16px;
 			left: 0;
 			z-index: 10;
-			width: 1000px;
+			width: 1100px;
+			
+			h1.main{
+				font-size: 80px;
+				color: $accent-magenta;
+			}
+
+			h4.sub{
+				font-family: $ericsson-font;
+				font-size: 40px;
+			}
 		}
 
 		#hero-screen {

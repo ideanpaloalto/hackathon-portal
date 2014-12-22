@@ -22,7 +22,7 @@ angular.module('apiDocumentationController', [])
       $scope.isSelected = false;
     }
 
-    console.log(children.indexOf(url) >= 0);
-    console.log('$scope.isSelected:', $scope.isSelected);
+    // console.log(children.indexOf(url) >= 0);
+    // console.log('$scope.isSelected:', $scope.isSelected);
   }
 });
