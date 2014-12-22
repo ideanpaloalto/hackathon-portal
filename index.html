@@ -25,39 +25,42 @@
   
   <div id="banner" animations="hackState.animations" hack-state="hackState"></div>
 
-  <div id="main-content" class="content-area">
+  <div id="main-content" class="content-area group">
     
-    <ul class="side-menu">
+    <ul class="side-menu" side-menu>
       <li ng-repeat="item in hackState.sideBarLinks"
-          ng-class="{selected: hackState.sideBarSelectedLink === item.ref && item.ref !== 'api-documentation'}">
+          ng-class="{ selected: hackState.sideBarSelectedLink === item.ref && item.ref !== 'api-documentation' }">
 
         <a ng-if="item.isStateRoute && item.ref !== 'api-documentation'"
            ng-click="hackState.handleSideBarClick(item)"
            class="side-menu-header">
-          {{item.label}}
+          <h3>{{item.label}}</h3>
         </a>
 
         <a ng-if="!item.isStateRoute && item.ref !== 'api-documentation'"
            ng-attr-href="{{item.ref}}"
            class="side-menu-header">
-          {{item.label}}
+          <h3>{{item.label}}</h3>
         </a>
 
         <div ng-if="item.ref === 'api-documentation'"
+             ng-controller="ApiDocumentationCtrl"
              class="side-menu-header">
-          {{item.label}}
+          <h3 ng-class="{ selected : isSelected === true }">{{item.label}}</h3>
+
+          <ul ng-if="item.ref === 'api-documentation'"
+              class="api-documentation-categories">
+
+            <li ng-repeat="category in hackState.categories"
+                ng-click="hackState.handleCategoryTabClick(category)"
+                ng-class="{ selected : category.id === hackState.selectedApiCategory }">
+              <p>{{category.name}}</p>
+            </li>
+          </ul>
         </div>
 
-        <ul ng-if="item.ref === 'api-documentation'"
-            class="api-documentation-categories">
-          <li ng-repeat="category in hackState.categories"
-              ng-click="hackState.handleCategoryTabClick(category)"
-              ng-class="{selected: category.id === hackState.selectedApiCategory}">
-            {{category.name}}
-          </li>
-        </ul>
-
-        <hr class="divider">
+        <div class="divider"
+             ng-if="!$last"></div>
       </li>
     </ul>
 
@@ -68,6 +71,7 @@
 
   <!-- ======== Scripts ======== -->
 
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 

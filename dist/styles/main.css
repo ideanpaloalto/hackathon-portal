@@ -166,12 +166,15 @@ table {
   font-weight: normal;
   font-style: normal; }
 
-.non-bulleted-list, .side-menu, .tabs, api-specification-card ul, api-list > ul, .api-documentation-categories {
-  padding-left: 0;
-  list-style-type: none;
+.non-bulleted-list, .tabs, api-specification-card ul, api-list > ul, ul.side-menu, ul.side-menu ul.api-documentation-categories {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   width: 100%; }
+  .non-bulleted-list li, .non-bulleted-list .tabs, .non-bulleted-list api-specification-card ul, api-specification-card .non-bulleted-list ul, .non-bulleted-list api-list > ul, api-list > .non-bulleted-list ul, .non-bulleted-list ul.side-menu, .non-bulleted-list ul.side-menu ul.api-documentation-categories, ul.side-menu .non-bulleted-list ul.api-documentation-categories {
+    display: inline-block; }
 
-div, h1, h2, h3, h4, h5, ul, ol, dl, p, hr {
+div, h1, h2, h3, h4, h5, ul, li, ol, dl, p, hr {
   margin: 0;
   padding: 0; }
 
@@ -187,7 +190,11 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   color: #404041;
-  font-weight: lighter !important; }
+  font-weight: lighter; }
+
+p, span, a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter; }
 
 h1, h2, h3, h4 {
   text-transform: uppercase;
@@ -244,20 +251,17 @@ button[disabled] {
   padding: 16px 0;
   background-color: #f7f7f7; }
 
-hr.divider {
-  position: relative;
-  border: 0 solid #bfbfbf;
-  border-bottom-width: 1px; }
+.group:after {
+  content: "";
+  display: table;
+  clear: both; }
 
-li:last-child > hr.divider {
-  display: none; }
+#route-view {
+  height: 100%; }
 
 /**********************************
 *** HEADER
 **********************************/
-h1 {
-  margin-bottom: 16px; }
-
 #banner {
   position: relative;
   width: 100%;
@@ -326,44 +330,6 @@ h1 {
   z-index: 3; }
 
 /**********************************
-*** SIDE MENU
-**********************************/
-.side-menu {
-  float: left;
-  width: 300px;
-  margin: 0;
-  background-color: #262223;
-  color: #fff; }
-
-.side-menu > li > a, .side-menu > li > div {
-  display: block;
-  height: 84px;
-  line-height: 84px;
-  font-size: 16px;
-  vertical-align: middle;
-  text-align: left;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: white; }
-
-.side-menu > li > div {
-  cursor: default;
-  font-size: 25px;
-  color: white; }
-
-.side-menu > li > a, .side-menu > li > a:active, .side-menu > li > a:hover, .side-menu > li > a:visited {
-  color: white;
-  transition: color 0.25s;
-  text-align: center; }
-
-.side-menu > li.selected > a {
-  color: #d51b5d; }
-
-.side-menu > li > hr.divider {
-  top: 0;
-  margin: 0; }
-
-/**********************************
 *** CONTENT AREA
 **********************************/
 .content-area {
@@ -373,7 +339,8 @@ h1 {
   min-height: 500px; }
   .content-area#main-content {
     height: 100%;
-    color: #333; }
+    color: #333;
+    height: 100%; }
   .content-area .inner-content-area {
     background-color: white;
     position: relative;
@@ -726,28 +693,86 @@ api-list:after {
   color: white;
   font-size: 35pt; }
 
-.api-documentation-categories {
-  padding-left: 18px; }
-
-.api-documentation-categories > li {
-  text-indent: -5px;
-  margin: 20px 0;
-  text-transform: uppercase;
-  cursor: pointer; }
-
-.api-documentation-categories > li:before {
-  content: '\2014';
-  position: relative;
-  left: -5px; }
-
-.api-documentation-categories > li:first-child {
-  margin-top: 0px; }
-
-.api-documentation-categories > li:last-child {
-  margin-bottom: 30px; }
-
-.api-documentation-categories > li.selected {
-  color: #d51b5d; }
+/**********************************
+*** SIDE MENU
+**********************************/
+ul.side-menu {
+  float: left;
+  width: 300px;
+  margin: 0;
+  background-color: #262223;
+  color: #fff;
+  min-height: 100%;
+  min-height: 100vh; }
+  ul.side-menu.fixed {
+    position: fixed;
+    top: 0;
+    z-index: 10; }
+  ul.side-menu li {
+    display: block;
+    width: 300px;
+    margin: 35px 0;
+    padding: 0; }
+    ul.side-menu li ul {
+      width: 300px; }
+    ul.side-menu li .selected {
+      color: #d51b5d;
+      border: none; }
+      ul.side-menu li .selected:before {
+        border: none;
+        transition: all 0.25s ease;
+        background: #d51b5d; }
+  ul.side-menu .divider {
+    width: 80%;
+    position: relative;
+    border-top: 1px solid #070707;
+    border-bottom: 1px solid #333333;
+    border-width: 1px;
+    height: 2px;
+    max-height: 2px;
+    margin: 35px auto; }
+  ul.side-menu .side-menu-header h3 {
+    text-align: center;
+    font-weight: lighter;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.25s ease;
+    width: 100%; }
+    ul.side-menu .side-menu-header h3.selected {
+      color: #d51b5d; }
+    ul.side-menu .side-menu-header h3:hover {
+      color: #d51b5d;
+      transition: color 0.25s ease; }
+  ul.side-menu ul.api-documentation-categories {
+    margin-left: 62px; }
+    ul.side-menu ul.api-documentation-categories li {
+      text-transform: uppercase;
+      transition: all 0.25s ease; }
+      ul.side-menu ul.api-documentation-categories li p {
+        display: inline; }
+      ul.side-menu ul.api-documentation-categories li:hover {
+        cursor: pointer;
+        color: #d51b5d;
+        transition: all 0.25s ease; }
+        ul.side-menu ul.api-documentation-categories li:hover:not(.selected):before {
+          border: none; }
+        ul.side-menu ul.api-documentation-categories li:hover:before {
+          border: none;
+          transition: all 0.25s ease;
+          background: #d51b5d; }
+      ul.side-menu ul.api-documentation-categories li:before {
+        content: "";
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: 20px;
+        border-radius: 5px;
+        left: -5px;
+        transition: all 0.25s ease; }
+      ul.side-menu ul.api-documentation-categories li:not(.selected):before {
+        border: 1px solid white; }
+      ul.side-menu ul.api-documentation-categories li .selected {
+        color: #d51b5d; }
 
 .getting-started-route {
   padding-bottom: 40px; }

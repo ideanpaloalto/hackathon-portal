@@ -3,12 +3,17 @@
 }
 
 .non-bulleted-list {
-  padding-left: 0;
-  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   width: 100%;
+
+  li {
+    display: inline-block;
+  }
 }
 
-div, h1, h2, h3, h4, h5, ul, ol, dl, p, hr {
+div, h1, h2, h3, h4, h5, ul, li, ol, dl, p, hr {
   margin: 0; padding: 0;
 }
 
@@ -26,7 +31,12 @@ body {
   font-family: $font-family;
   font-size: $body-font-size;
   color: $body-color;
-  font-weight: lighter !important;
+  font-weight: lighter;
+}
+
+p, span, a {
+  font-family: $font-family;
+  font-weight: lighter;
 }
 
 h1, h2, h3, h4 {
@@ -98,26 +108,19 @@ button[disabled] {
   background-color: $code-output-background-color;
 }
 
-#route-view {
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
-hr.divider {
-  position: relative;
-  border: 0 solid $card-inactive-color;
-  border-bottom-width: $divider-border-width;
-}
-
-li:last-child>hr.divider {
-  display: none;
+#route-view{
+  height: 100%;
 }
 
 /**********************************
 *** HEADER
 **********************************/
-h1 {
-  margin-bottom: 16px;
-}
-
 #banner {
   position: relative;
   width: 100%;
@@ -200,58 +203,6 @@ h1 {
 }
 
 /**********************************
-*** SIDE MENU
-**********************************/
-.side-menu {
-  @extend .non-bulleted-list;
-  float: left;
-  width: $side-menu-width;
-  margin: 0;
-  background-color: $gray-6;
-  color: #fff;
-}
-
-.side-menu > li > a,
-.side-menu > li > div {
-  display: block;
-  height: $side-menu-item-height;
-  line-height: $side-menu-item-height;
-  font-size: $side-menu-font-size;
-  vertical-align: middle;
-  text-align: left;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: $white;
-  // font-weight: lighter;
-}
-
-.side-menu > li > div {
-  cursor: default;
-  font-size: 25px;
-  // font-weight: lighter;
-  color: $white;
-}
-
-.side-menu>li>a,
-.side-menu>li>a:active,
-.side-menu>li>a:hover,
-.side-menu>li>a:visited {
-  color: $white;
-  // font-weight: lighter;
-  transition: color 0.25s;
-  text-align: center;
-}
-
-.side-menu>li.selected>a {
-  color: $item-active-color;
-}
-
-.side-menu>li>hr.divider {
-  top: 0;
-  margin: 0;
-}
-
-/**********************************
 *** CONTENT AREA
 **********************************/
 .content-area {
@@ -263,6 +214,7 @@ h1 {
   &#main-content{
     height: 100%;
     color: #333;
+    height: 100%;
   }
 
   .inner-content-area {

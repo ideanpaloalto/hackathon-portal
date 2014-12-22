@@ -16,7 +16,8 @@
  *   - Loads all of the sub-modules
  *   - Defines routes via `$routeProvider`
  */
-angular.module('hackApp', [
+
+var hackApp = angular.module('hackApp', [
   'ui.router',
   'hljs',
 
@@ -96,6 +97,23 @@ angular.module('hackApp', [
     readmeText: 'Loading README...'
   }
 ])
+
+.constant('debounce',
+  function (func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+)
 
 .constant('sideBarLinks', [
   {
@@ -391,9 +409,13 @@ angular.module('hackController', [])
   $scope.hackState.handleCategoryTabClick = handleCategoryTabClick;
 
   // ---  --- //
+  $scope.test = function( el ){
+    console.log( el );
+  };
 
   function handleStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     if (toState.name === 'api-documentation') {
+      $rootScope.isSelected = true;
       $state.go($rootScope.defaultCategory.ref);
       return;
     }
@@ -1231,36 +1253,6 @@ angular.module('apiListDirective', [])
 
 'use strict';
 
-angular.module('apiSpecificationCardDirective', [])
-
-.constant('apiSpecificationCardTemplatePath', hack.rootPath + '/dist/templates/components/api-specification-card/api-specification-card.html')
-
-/**
- * @ngdoc directive
- * @name apiSpecificationCard
- * @requires apiSpecificationCardTemplatePath
- * @param {Object} apiItem
- * @description
- *
- * A panel used for displaying the specification for a single API call.
- */
-.directive('apiSpecificationCard', function (apiSpecificationCardTemplatePath) {
-  return {
-    restrict: 'E',
-    scope: {
-      apiItem: '='
-    },
-    templateUrl: apiSpecificationCardTemplatePath,
-    link: function (scope, element, attrs) {
-      scope.isArray = function (input) {
-        return input instanceof Array;
-      };
-    }
-  };
-});
-
-'use strict';
-
 angular.module('apiListItemDirective', [])
 
 .constant('apiListItemTemplatePath', hack.rootPath + '/dist/templates/components/api-list-item/api-list-item.html')
@@ -1320,6 +1312,36 @@ angular.module('apiListItemDirective', [])
           targetRef = targetRef + '.' + scope.apiItem.ref;
         
         $state.go(targetRef);
+      };
+    }
+  };
+});
+
+'use strict';
+
+angular.module('apiSpecificationCardDirective', [])
+
+.constant('apiSpecificationCardTemplatePath', hack.rootPath + '/dist/templates/components/api-specification-card/api-specification-card.html')
+
+/**
+ * @ngdoc directive
+ * @name apiSpecificationCard
+ * @requires apiSpecificationCardTemplatePath
+ * @param {Object} apiItem
+ * @description
+ *
+ * A panel used for displaying the specification for a single API call.
+ */
+.directive('apiSpecificationCard', function (apiSpecificationCardTemplatePath) {
+  return {
+    restrict: 'E',
+    scope: {
+      apiItem: '='
+    },
+    templateUrl: apiSpecificationCardTemplatePath,
+    link: function (scope, element, attrs) {
+      scope.isArray = function (input) {
+        return input instanceof Array;
       };
     }
   };
@@ -1512,6 +1534,31 @@ angular.module('apiTryItCardDirective', [])
   };
 });
 
+// /dist/components/side-menu/side-menu-directive.js
+
+hackApp.directive('sideMenu', function( debounce ){
+  return {
+    restrict : 'A',
+    link : function( scope, element, attrs ){
+      var $window = $(window);
+      var origElOffset = element.offset().top;
+
+      var addFixedClass = debounce( function(){
+        var winOffset = $window.scrollTop();
+        var elOffset = element.offset().top;
+
+        if( winOffset > elOffset ){
+          element.addClass('fixed');
+        } else if ( origElOffset >= elOffset ){
+          element.removeClass('fixed');
+        }
+      }, 10);
+
+      $window.scroll( addFixedClass );
+    }
+  }
+});
+
 'use strict';
 
 angular.module('apiDocumentationController', [])
@@ -1523,7 +1570,15 @@ angular.module('apiDocumentationController', [])
  *
  * Controller for the API Documentation page.
  */
-.controller('ApiDocumentationCtrl', function () {
+.controller('ApiDocumentationCtrl', function ($scope, $state, $rootScope) {
+  var url =  $state.current.url;
+  var children = ['/know-driver', '/know-car', '/control-car'];
+
+  if( children.indexOf(url) >= 0 || $rootScope.isSelected === true ){
+    $scope.isSelected = true;
+  } else {
+    $scope.isSelected = false;
+  }
 });
 
 'use strict';

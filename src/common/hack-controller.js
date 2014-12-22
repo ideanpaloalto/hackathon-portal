@@ -30,9 +30,13 @@ angular.module('hackController', [])
   $scope.hackState.handleCategoryTabClick = handleCategoryTabClick;
 
   // ---  --- //
+  $scope.test = function( el ){
+    console.log( el );
+  };
 
   function handleStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     if (toState.name === 'api-documentation') {
+      $rootScope.isSelected = true;
       $state.go($rootScope.defaultCategory.ref);
       return;
     }
