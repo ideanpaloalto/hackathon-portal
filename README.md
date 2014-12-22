@@ -3,13 +3,13 @@ Hackathon Portal
 
 This project is a web portal for the AT&T Foundry Connected Car API.
 
-_Check out the portal running at [ericsson-innovate.github.io/hackathon-portal](http://ericsson-innovate.github.io/hackathon-portal/)_
+_Check out the portal running at [ideanpaloalto.github.io/hackathon-portal](http://ideanpaloalto.github.io/hackathon-portal/)_
 
 These companion repositories contain sample applications for the three main platforms:
 
-- Android Application: [github.com/ericsson-innovate/asdp-api-sampler-android](https://github.com/ericsson-innovate/asdp-api-sampler-android)
-- iOS Application: [github.com/ericsson-innovate/asdp-api-sampler-ios](https://github.com/ericsson-innovate/asdp-api-sampler-ios)
-- Web Application: [github.com/ericsson-innovate/asdp-api-sampler-javascript](https://github.com/ericsson-innovate/asdp-api-sampler-javascript)
+- Android Application: [github.com/ideanpaloalto/asdp-api-sampler-android](https://github.com/ideanpaloalto/asdp-api-sampler-android)
+- iOS Application: [github.com/ideanpaloalto/asdp-api-sampler-ios](https://github.com/ideanpaloalto/asdp-api-sampler-ios)
+- Web Application: [github.com/ideanpaloalto/asdp-api-sampler-javascript](https://github.com/ideanpaloalto/asdp-api-sampler-javascript)
 
 ### Where the Portal is Hosted
 

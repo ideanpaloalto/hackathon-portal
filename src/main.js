@@ -57,8 +57,8 @@ var hackApp = angular.module('hackApp', [
 .constant('emptyImagePath', hack.rootPath + '/dist/images/empty.gif')
 .constant('dataPath', hack.rootPath + '/data')
 
-.constant('androidExampleUrl', 'http://github-raw-cors-proxy.herokuapp.com/ericsson-innovate/asdp-api-sampler-android/master')
-.constant('iosExampleUrl', 'http://github-raw-cors-proxy.herokuapp.com/ericsson-innovate/asdp-api-sampler-ios/master')
+.constant('androidExampleUrl', 'http://github-raw-cors-proxy.herokuapp.com/ideanpaloalto/asdp-api-sampler-android/master')
+.constant('iosExampleUrl', 'http://github-raw-cors-proxy.herokuapp.com/ideanpaloalto/asdp-api-sampler-ios/master')
 .constant('webExampleUrl', hack.rootPath)
 
 .constant('luceneDefinitionUrl', 'http://lucene.apache.org/core/2_9_4/queryparsersyntax.html')
