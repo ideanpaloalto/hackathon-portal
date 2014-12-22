@@ -74,7 +74,6 @@ li[api-list-item].none-selected .api-list-item-header {
   }
 
   .verb {
-    @include code-font();
     float: left;
     width: $verb-width;
     color: $white;
@@ -82,6 +81,7 @@ li[api-list-item].none-selected .api-list-item-header {
     text-align: center;
     transition: color 0.15s, background-color 0.15s;
     border-radius: $border-radius;
+    text-shadow: 0 1px 3px $gray-4;
   }
 
   .route {

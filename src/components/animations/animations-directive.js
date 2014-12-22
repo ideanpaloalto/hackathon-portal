@@ -37,34 +37,18 @@ angular.module('animationsDirective', [])
 
       // $rootScope.$on('$viewContentLoaded', function (event) {
         if (isFirstViewContentLoadedEvent) {
-          console.log('Triggering animation from the initial load of the page');
+          // console.log('Triggering animation from the initial load of the page');
 
-          var carScreen = document.getElementById('car-hero-screen');
+          var carScreen = document.getElementById('hero-screen');
           var carScreenInitialAlpha = 0.7;
+          var $headlines = $(document).find('.question-set');
+          var questions = [];
 
-          var questionSet1 = [
-            document.getElementById('car-question-set-1-question-1'),
-            document.getElementById('car-question-set-1-question-2'),
-            document.getElementById('car-question-set-1-question-3')
-          ];
-
-          var questionSet2 = [
-            document.getElementById('car-question-set-2-question-1'),
-            document.getElementById('car-question-set-2-question-2'),
-            document.getElementById('car-question-set-2-question-3')
-          ];
-
-          var questionSet3 = [
-            document.getElementById('car-question-set-3-question-1'),
-            document.getElementById('car-question-set-3-question-2'),
-            document.getElementById('car-question-set-3-question-3')
-          ];
-
-          var questionSet4 = [
-            document.getElementById('car-question-set-4-question-1'),
-            document.getElementById('car-question-set-4-question-2'),
-            document.getElementById('car-question-set-4-question-3')
-          ];
+          $headlines.each(function( i ){
+            var main = $(this).find('.main');
+            var sub = $(this).find('.sub');
+            questions.push([ main[0], sub[0] ]);
+          });
 
           scope.timeline = new TimelineMax();
 
@@ -72,26 +56,26 @@ angular.module('animationsDirective', [])
 
           scope.timeline.add("set-1", "+=2");
           scope.timeline.add(TweenMax.from(carScreen, 1.5, {alpha:0}), "+=2");
-          scope.timeline.add(TweenMax.staggerFrom(questionSet1, 1.75, {x:"60", alpha:0}, 0.3), "-=1.0");
-          scope.timeline.add(TweenMax.staggerTo(questionSet1, 1, {x:"-60", alpha:0}, 0.3), "+=3");
+          scope.timeline.add(TweenMax.staggerFrom(questions[0], 1.75, {x:"60", alpha:0}, 0.3), "-=1.0");
+          scope.timeline.add(TweenMax.staggerTo(questions[0], 1, {x:"-60", alpha:0}, 0.3), "+=3");
           scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
 
           scope.timeline.add("set-2", "+=2");
           scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
-          scope.timeline.add(TweenMax.staggerFrom(questionSet2, 1.75, {x:"60", alpha:0}, 0.3), "-=1");
-          scope.timeline.add(TweenMax.staggerTo(questionSet2, 1, {x:"-60", alpha:0}, 0.3), "+=3");
+          scope.timeline.add(TweenMax.staggerFrom(questions[1], 1.75, {x:"60", alpha:0}, 0.3), "-=1");
+          scope.timeline.add(TweenMax.staggerTo(questions[1], 1, {x:"-60", alpha:0}, 0.3), "+=3");
           scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
 
           scope.timeline.add("set-3", "+=2");
           scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
-          scope.timeline.add(TweenMax.staggerFrom(questionSet3, 1.75, {x:"60", alpha:0}, 0.3), "-=1");
-          scope.timeline.add(TweenMax.staggerTo(questionSet3, 1, {x:"-60", alpha:0}, 0.3), "+=3");
+          scope.timeline.add(TweenMax.staggerFrom(questions[2], 1.75, {x:"60", alpha:0}, 0.3), "-=1");
+          scope.timeline.add(TweenMax.staggerTo(questions[2], 1, {x:"-60", alpha:0}, 0.3), "+=3");
           scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
 
           scope.timeline.add("set-4", "+=2");
           scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
-          scope.timeline.add(TweenMax.staggerFrom(questionSet4, 1.75, {x:"60", alpha:0}, 0.3), "-=1");
-          scope.timeline.add(TweenMax.staggerTo(questionSet4, 1, {x:"-60", alpha:0}, 0.3), "+=3");
+          scope.timeline.add(TweenMax.staggerFrom(questions[3], 1.75, {x:"60", alpha:0}, 0.3), "-=1");
+          scope.timeline.add(TweenMax.staggerTo(questions[3], 1, {x:"-60", alpha:0}, 0.3), "+=3");
           scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
 
           scope.timeline.add("end");
