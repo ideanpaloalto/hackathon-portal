@@ -22,23 +22,29 @@
 </head>
 <body ng-app="hackApp"
       ng-controller="HackCtrl">
+  
   <div id="banner" animations="hackState.animations" hack-state="hackState"></div>
 
-  <div class="content-area">
+  <div id="main-content" class="content-area">
+    
     <ul class="side-menu">
       <li ng-repeat="item in hackState.sideBarLinks"
           ng-class="{selected: hackState.sideBarSelectedLink === item.ref && item.ref !== 'api-documentation'}">
 
         <a ng-if="item.isStateRoute && item.ref !== 'api-documentation'"
-           ng-click="hackState.handleSideBarClick(item)">
-          {{item.label}}
-        </a>
-        <a ng-if="!item.isStateRoute && item.ref !== 'api-documentation'"
-           ng-attr-href="{{item.ref}}">
+           ng-click="hackState.handleSideBarClick(item)"
+           class="side-menu-header">
           {{item.label}}
         </a>
 
-        <div ng-if="item.ref === 'api-documentation'">
+        <a ng-if="!item.isStateRoute && item.ref !== 'api-documentation'"
+           ng-attr-href="{{item.ref}}"
+           class="side-menu-header">
+          {{item.label}}
+        </a>
+
+        <div ng-if="item.ref === 'api-documentation'"
+             class="side-menu-header">
           {{item.label}}
         </div>
 

@@ -1,0 +1,91 @@
+// $root-path: '/hackathon-portal';
+$root-path: '';
+
+// GENERAL
+$font-family: 'Montserrat', sans-serif;
+
+
+// COLORS
+$accent-magenta: rgb(213,27,93);
+$accent-magenta-light: lighten( $accent-magenta, 40% );
+
+$white: rgb(255,255,255);
+$gray: rgb(102,102,102);
+$black: rgb(0,0,0);
+
+// from lightest to darkest:
+$gray-1: rgb(239,248,255); // lightest
+$gray-2: rgb(247,247,247); // lighter
+$gray-3: rgb(191,191,191); // light
+$gray-4: rgb(102,102,102); // medium
+  $gray-8: rgb(64,64,65); // medium-dark
+$gray-5: rgb(51,51,51); // dark
+$gray-6: rgb(38,34,35); // darker
+$gray-7: rgb(7,7,7); // darkest
+
+
+// COLOR ASSIGNMENTS
+$code-font-stack: Consolas, Monaco, 'Andale Mono', monospace;
+
+$route-view-background-color: $white;
+
+$button-active-color: $white;
+$button-active-background-color: $black;
+
+$button-inactive-color: $white;
+$button-inactive-background-color: $gray-4;
+
+$tab-active-border-color: $accent-magenta;
+$tab-inactive-border-color: $gray-5;
+
+$item-active-color: $accent-magenta;
+$item-inactive-color: $gray-5;
+
+$verb-active-color: $white;
+$verb-active-background-color: $accent-magenta;
+
+$verb-inactive-color: $white;
+$verb-inactive-background-color: $accent-magenta-light;
+
+$card-inactive-color: $gray-3;
+
+$banner-color: $white;
+$banner-background-color: $gray-7;
+
+$body-color: $gray-8;
+$body-background-color: $black;
+
+$code-input-background-color: $gray-1;
+$code-output-background-color: $gray-2;
+
+
+// SIZES
+$body-font-size: 14px;
+$tab-font-size: 16px;
+$toggle-button-font-size: 14px;
+$banner-header-font-size: 20px;
+
+$border-radius: 10px;
+
+$h1-font-size: 24px;
+$h2-font-size: 16px;
+$h3-font-size: 14px;
+$h4-font-size: 14px;
+
+$side-menu-width: 300px;
+$side-menu-font-size: 16px;
+$side-menu-item-height: 84px;
+
+$category-tab-height: 30px;
+$category-tab-border-width: 10px;
+
+$divider-border-width: 1px;
+
+$banner-height: 600px;
+$top-header-height: 70px;
+$top-header-divider-border-width: 1px;
+$logo-gap: 36px;
+
+$code-padding: 16px;
+$input-padding: 6px;
+$button-height: 35px;
