@@ -1066,6 +1066,36 @@ angular.module('tryItService', [])
 
 'use strict';
 
+angular.module('apiExampleCardDirective', [])
+
+.constant('apiExampleCardTemplatePath', hack.rootPath + '/dist/templates/components/api-example-card/api-example-card.html')
+
+/**
+ * @ngdoc directive
+ * @name apiExampleCard
+ * @requires apiExampleCardTemplatePath
+ * @param {object} example
+ * @description
+ *
+ * A panel used for displaying platform-specific examples of a single API call.
+ */
+.directive('apiExampleCard', function (apiExampleCardTemplatePath) {
+  return {
+    restrict: 'AE',
+    scope: {
+      apiItem: '='
+    },
+    templateUrl: apiExampleCardTemplatePath,
+    link: function (scope, element, attrs) {
+      // scope.handleTabClick = function (platform) {
+      //   scope.apiItem.HackExamples.currentPlatform = platform;
+      // };
+    }
+  };
+});
+
+'use strict';
+
 angular.module('animationsDirective', [])
 
 .constant('animationsTemplatePath', hack.rootPath + '/dist/templates/components/animations/animations.html')
@@ -1161,36 +1191,6 @@ angular.module('animationsDirective', [])
       function handleAnimationTabClick(animation, wasHumanClick) {
         scope.timeline.seek(animation.label, false);
       }
-    }
-  };
-});
-
-'use strict';
-
-angular.module('apiExampleCardDirective', [])
-
-.constant('apiExampleCardTemplatePath', hack.rootPath + '/dist/templates/components/api-example-card/api-example-card.html')
-
-/**
- * @ngdoc directive
- * @name apiExampleCard
- * @requires apiExampleCardTemplatePath
- * @param {object} example
- * @description
- *
- * A panel used for displaying platform-specific examples of a single API call.
- */
-.directive('apiExampleCard', function (apiExampleCardTemplatePath) {
-  return {
-    restrict: 'E',
-    scope: {
-      apiItem: '='
-    },
-    templateUrl: apiExampleCardTemplatePath,
-    link: function (scope, element, attrs) {
-      scope.handleTabClick = function (platform) {
-        scope.apiItem.HackExamples.currentPlatform = platform;
-      };
     }
   };
 });
@@ -1300,6 +1300,10 @@ angular.module('apiListItemDirective', [])
           targetRef = targetRef + '.' + scope.apiItem.ref;
         
         $state.go(targetRef);
+      };
+
+      scope.handleTabClick = function (platform) {
+        scope.apiItem.HackExamples.currentPlatform = platform;
       };
     }
   };

@@ -13,10 +13,11 @@ api-example-card>[hljs]>pre {
 }
 
 .platform-tabs {
+  border: 2px solid $gray-11;
+  border-bottom: none;
 }
 
 .platform-tab {
   height: $platform-tab-height;
   background-color: $gray-10;
-  border-bottom-width: $platform-tab-border-width;
 }

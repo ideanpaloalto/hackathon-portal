@@ -276,8 +276,9 @@ header {
   padding: 25px 0;
   position: relative; }
   header h1#ericsson-logo-text {
-    font-size: 55px;
-    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    letter-spacing: 4px;
     color: white; }
   header #ericsson-logo-icon {
     display: block;
@@ -343,6 +344,7 @@ header {
 
 .tab.selected {
   color: #d51b5d;
+  font-weight: bold;
   background-color: #ececec; }
 
 .tab:first-child {
@@ -433,7 +435,10 @@ li[api-list-item].none-selected .api-list-item-header {
     font-size: 20px; }
     .api-list-item-body api-specification-card div, .api-list-item-body api-example-card div, .api-list-item-body api-try-it-card div {
       margin: 25px 50px; }
+  .api-list-item-body api-example-card {
+    border-top: none; }
   .api-list-item-body .card-tabs .card-tab {
+    font-family: 'Montserrat', sans-serif;
     font-size: 20px;
     height: 50px;
     margin-top: 20px;
@@ -519,10 +524,13 @@ api-example-card {
 api-example-card > [hljs] > pre {
   height: calc(100% - 70px); }
 
+.platform-tabs {
+  border: 2px solid #dfdfdf;
+  border-bottom: none; }
+
 .platform-tab {
   height: 50px;
-  background-color: #ececec;
-  border-bottom-width: 10px; }
+  background-color: #ececec; }
 
 api-try-it-card {
   display: block;

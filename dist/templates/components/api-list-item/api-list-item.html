@@ -15,6 +15,16 @@
     </li>
   </ul>
 
+  <ul class="platform-tabs tabs"
+      ng-if="apiItem.HackApi.currentCard === 'example'">
+    <li ng-repeat="platform in ['web', 'android', 'ios']"
+        ng-click="handleTabClick(platform)"
+        ng-class="{selected: apiItem.HackExamples.currentPlatform === platform}"
+        class="platform-tab tab">
+      {{platform}}
+    </li>
+  </ul>
+
   <api-specification-card ng-if="apiItem.HackApi.currentCard === 'specification'"
                           api-item="apiItem"></api-specification-card>
 

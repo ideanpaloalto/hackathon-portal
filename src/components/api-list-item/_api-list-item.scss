@@ -139,9 +139,14 @@ li[api-list-item].none-selected .api-list-item-header {
     }
   }
 
+  api-example-card{
+    border-top: none;
+  }
+
   .card-tabs {
 
     .card-tab {
+      font-family: $font-family-regular;
       font-size: $card-tab-font-size;
       height: $card-tab-height;
       margin-top: $card-tab-top-margin;

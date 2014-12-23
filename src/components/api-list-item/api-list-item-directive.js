@@ -60,6 +60,10 @@ angular.module('apiListItemDirective', [])
         
         $state.go(targetRef);
       };
+
+      scope.handleTabClick = function (platform) {
+        scope.apiItem.HackExamples.currentPlatform = platform;
+      };
     }
   };
 });

@@ -135,8 +135,9 @@ header{
   position: relative;
 
   h1#ericsson-logo-text{
-    font-size: 55px;
-    font-weight: bold;
+    font-family: $font-family-regular;
+    font-size: 30px;
+    letter-spacing: 4px;
     color: $white;
   }
 
@@ -224,6 +225,7 @@ header{
 
 .tab.selected {
   color: $accent-magenta;
+  font-weight: bold;
   background-color: $gray-10;
 }
 
