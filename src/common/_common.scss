@@ -20,9 +20,9 @@ div, h1, h2, h3, h4, h5, ul, li, ol, dl, p, hr {
 }
 
 html{
+  background: url(../images/demo_portal_bg.jpg) no-repeat center;
   background-color: $body-background-color;
   box-sizing: border-box;
-  background: url(../images/demo_portal_bg.jpg);
   height: 100%;
 }
 
