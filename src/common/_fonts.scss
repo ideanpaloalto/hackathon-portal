@@ -1,0 +1,25 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+
+@font-face {
+  font-family: 'ericsson_capitalregular';
+  src: url($root-path + '/dist/fonts/ericssoncapital.eot');
+  src: url($root-path + '/dist/fonts/ericssoncapital.eot?#iefix') format('embedded-opentype'),
+       url($root-path + '/dist/fonts/ericssoncapital.woff2') format('woff2'),
+       url($root-path + '/dist/fonts/ericssoncapital.woff') format('woff'),
+       url($root-path + '/dist/fonts/ericssoncapital.ttf') format('truetype'),
+       url($root-path + '/dist/fonts/ericssoncapital.svg#ericsson_capitalregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat Light';
+    src: url($root-path + '/dist/fonts/montserrat-hairline-webfont.eot');
+    src: url($root-path + '/dist/fonts/montserrat-hairline-webfont.eot?#iefix') format('embedded-opentype'),
+         url($root-path + '/dist/fonts/montserrat-hairline-webfont.woff2') format('woff2'),
+         url($root-path + '/dist/fonts/montserrat-hairline-webfont.woff') format('woff'),
+         url($root-path + '/dist/fonts/montserrat-hairline-webfont.ttf') format('truetype'),
+         url($root-path + '/dist/fonts/montserrat-hairline-webfont.svg#montserrathairline') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

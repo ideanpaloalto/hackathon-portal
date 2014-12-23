@@ -9,5 +9,6 @@ angular.module('apiDocumentationController', [])
  *
  * Controller for the API Documentation page.
  */
-.controller('ApiDocumentationCtrl', function () {
+.controller('ApiDocumentationCtrl', function ($scope, $state, $rootScope) {
+  // do stuff
 });

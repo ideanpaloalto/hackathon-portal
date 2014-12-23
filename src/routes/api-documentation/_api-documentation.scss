@@ -1,0 +1,30 @@
+
+.api-documentation-categories {
+  @extend .non-bulleted-list;
+  padding-left: 18px;
+}
+
+.api-documentation-categories>li {
+  text-indent: -5px;
+  margin: 20px 0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.api-documentation-categories>li:before {
+  content: '\2014';
+  position: relative;
+  left: -5px;
+}
+
+.api-documentation-categories>li:first-child {
+  margin-top: 0px;
+}
+
+.api-documentation-categories>li:last-child {
+  margin-bottom: 30px;
+}
+
+.api-documentation-categories>li.selected {
+  color: $item-active-color;
+}

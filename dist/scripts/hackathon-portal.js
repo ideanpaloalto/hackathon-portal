@@ -16,7 +16,8 @@
  *   - Loads all of the sub-modules
  *   - Defines routes via `$routeProvider`
  */
-angular.module('hackApp', [
+
+var hackApp = angular.module('hackApp', [
   'ui.router',
   'hljs',
 
@@ -96,6 +97,23 @@ angular.module('hackApp', [
     readmeText: 'Loading README...'
   }
 ])
+
+.constant('debounce',
+  function (func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+)
 
 .constant('sideBarLinks', [
   {
@@ -386,14 +404,16 @@ angular.module('hackController', [])
   $scope.myState = $state;
 
   $rootScope.$on('$stateChangeSuccess', handleStateChangeSuccess);
-
+  console.log($state.name);
   $scope.hackState.handleSideBarClick = handleSideBarClick;
   $scope.hackState.handleCategoryTabClick = handleCategoryTabClick;
+  $scope.hackState.handleSideMenuHeaderClick = handleSideMenuHeaderClick;
 
   // ---  --- //
 
   function handleStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     if (toState.name === 'api-documentation') {
+      $rootScope.hackState.isSelected = 'api-documentation';
       $state.go($rootScope.defaultCategory.ref);
       return;
     }
@@ -405,6 +425,7 @@ angular.module('hackController', [])
 
       if (toState.name.indexOf(link.ref) == 0) {
         $scope.hackState.sideBarSelectedLink = link.ref;
+        $scope.hackState.isSelected = link.ref;
         break;
       }
     }
@@ -413,23 +434,36 @@ angular.module('hackController', [])
   }
 
   function handleSideBarClick(link) {
-    console.log('Side bar item click');
-
     var targetState = link.ref;
 
-    if (link.ref === 'api-documentation')
+    if (link.ref === 'api-documentation') {
       targetState = $rootScope.defaultCategory.ref;
+      $scope.hackState.isSelected = 'api-documentation';
+    } else {
+      $scope.hackState.isSelected = targetState;
+    }
 
     $state.go(targetState);
   }
 
-  function handleCategoryTabClick(category) {
-    console.log('Category tab click');
+  function handleCategoryTabClick( item, category ){
+    $scope.hackState.isSelected = item.ref;
 
     $rootScope.selectedApiCategory = category.id;
 
     // Transition to the API documentation route/state
     $state.go('api-documentation.' + category.id);
+  }
+
+  function handleSideMenuHeaderClick( item ){
+    $scope.hackState.isSelected = item.ref;
+    console.log( 'side menu header clicked:', $scope.hackState.isSelected );
+
+    if( item.ref === 'api-documentation' ){
+      $state.go('api-documentation.know-driver');
+    }
+
+    return;
   }
 });
 
@@ -1043,7 +1077,7 @@ angular.module('animationsDirective', [])
  *
  * A panel for managing animations.
  */
-.directive('animations', function ($rootScope, $interval, animationsTemplatePath) {
+.directive('animations', function ($rootScope, $interval, animationsTemplatePath, $timeout) {
   return {
     restrict: 'A',
 
@@ -1059,98 +1093,104 @@ angular.module('animationsDirective', [])
       scope.selectedLabel = null;
       scope.timeline = null;
       
-      var carouselInterval, isFirstViewContentLoadedEvent;
+      var carScreen               = document.getElementById('hero-screen'),
+          carScreenInitialAlpha   = 0.7,
+          $headlines              = $(document).find('.question-set'),
+          questions               = [],
+          isFirstViewContentLoadedEvent = true;
 
       // Add an event handler to the parent scope
       scope.hackState.handleAnimationTabClick = handleAnimationTabClick;
+      initSlider();
 
-      carouselInterval = null;
-      isFirstViewContentLoadedEvent = true;
-
-      // $rootScope.$on('$viewContentLoaded', function (event) {
+      function initSlider(){
         if (isFirstViewContentLoadedEvent) {
-          console.log('Triggering animation from the initial load of the page');
-
-          var carScreen = document.getElementById('car-hero-screen');
-          var carScreenInitialAlpha = 0.7;
-
-          var questionSet1 = [
-            document.getElementById('car-question-set-1-question-1'),
-            document.getElementById('car-question-set-1-question-2'),
-            document.getElementById('car-question-set-1-question-3')
-          ];
-
-          var questionSet2 = [
-            document.getElementById('car-question-set-2-question-1'),
-            document.getElementById('car-question-set-2-question-2'),
-            document.getElementById('car-question-set-2-question-3')
-          ];
-
-          var questionSet3 = [
-            document.getElementById('car-question-set-3-question-1'),
-            document.getElementById('car-question-set-3-question-2'),
-            document.getElementById('car-question-set-3-question-3')
-          ];
-
-          var questionSet4 = [
-            document.getElementById('car-question-set-4-question-1'),
-            document.getElementById('car-question-set-4-question-2'),
-            document.getElementById('car-question-set-4-question-3')
-          ];
-
-          scope.timeline = new TimelineMax();
-
-          scope.timeline.add("start");
-
-          scope.timeline.add("set-1", "+=2");
-          scope.timeline.add(TweenMax.from(carScreen, 1.5, {alpha:0}), "+=2");
-          scope.timeline.add(TweenMax.staggerFrom(questionSet1, 1.75, {x:"60", alpha:0}, 0.3), "-=1.0");
-          scope.timeline.add(TweenMax.staggerTo(questionSet1, 1, {x:"-60", alpha:0}, 0.3), "+=3");
-          scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
-
-          scope.timeline.add("set-2", "+=2");
-          scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
-          scope.timeline.add(TweenMax.staggerFrom(questionSet2, 1.75, {x:"60", alpha:0}, 0.3), "-=1");
-          scope.timeline.add(TweenMax.staggerTo(questionSet2, 1, {x:"-60", alpha:0}, 0.3), "+=3");
-          scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
-
-          scope.timeline.add("set-3", "+=2");
-          scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
-          scope.timeline.add(TweenMax.staggerFrom(questionSet3, 1.75, {x:"60", alpha:0}, 0.3), "-=1");
-          scope.timeline.add(TweenMax.staggerTo(questionSet3, 1, {x:"-60", alpha:0}, 0.3), "+=3");
-          scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
-
-          scope.timeline.add("set-4", "+=2");
-          scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
-          scope.timeline.add(TweenMax.staggerFrom(questionSet4, 1.75, {x:"60", alpha:0}, 0.3), "-=1");
-          scope.timeline.add(TweenMax.staggerTo(questionSet4, 1, {x:"-60", alpha:0}, 0.3), "+=3");
-          scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
-
-          scope.timeline.add("end");
-
-          carouselInterval = $interval(function() {
-            var currentLabel = scope.timeline.currentLabel();
-
-            if (scope.selectedLabel != currentLabel) {
-                scope.selectedLabel = currentLabel;
-            }
-          }, 500);
-
-          scope.$on('$destroy', function() {
-            // Make sure that the interval is destroyed too
-            if (carouselInterval != null) {
-              carouselInterval.cancel();
-              carouselInterval = null;
-            }
+          $headlines.each(function( i ){
+            var main = $(this).find('.main');
+            var sub = $(this).find('.sub');
+            questions.push([ main[0], sub[0] ]);
           });
+
+          playSlider();
 
           isFirstViewContentLoadedEvent = false;
         }
-      // });
+      }
+
+      function playSlider(){
+        var carouselInterval = $interval(function() {
+          var currentLabel = scope.timeline.currentLabel();
+
+          if (scope.selectedLabel != currentLabel) {
+              scope.selectedLabel = currentLabel;
+          }
+        }, 500);
+
+        scope.timeline = new TimelineMax();
+
+        scope.timeline.add("start");
+
+        scope.timeline.add("set-1", "+=2");
+        scope.timeline.add(TweenMax.from(carScreen, 1.5, {alpha:0}), "+=2");
+        scope.timeline.add(TweenMax.staggerFrom(questions[0], 1.75, {x:"60", alpha:0}, 0.3), "-=1.0");
+        scope.timeline.add(TweenMax.staggerTo(questions[0], 1, {x:"-60", alpha:0}, 0.3), "+=3");
+        scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
+
+        scope.timeline.add("set-2", "+=2");
+        scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
+        scope.timeline.add(TweenMax.staggerFrom(questions[1], 1.75, {x:"60", alpha:0}, 0.3), "-=1");
+        scope.timeline.add(TweenMax.staggerTo(questions[1], 1, {x:"-60", alpha:0}, 0.3), "+=3");
+        scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
+
+        scope.timeline.add("set-3", "+=2");
+        scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
+        scope.timeline.add(TweenMax.staggerFrom(questions[2], 1.75, {x:"60", alpha:0}, 0.3), "-=1");
+        scope.timeline.add(TweenMax.staggerTo(questions[2], 1, {x:"-60", alpha:0}, 0.3), "+=3");
+        scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
+
+        scope.timeline.add("set-4", "+=2");
+        scope.timeline.add(TweenMax.to(carScreen, 1.5, {alpha:carScreenInitialAlpha}), "+=2");
+        scope.timeline.add(TweenMax.staggerFrom(questions[3], 1.75, {x:"60", alpha:0}, 0.3), "-=1");
+        scope.timeline.add(TweenMax.staggerTo(questions[3], 1, {x:"-60", alpha:0}, 0.3), "+=3");
+        scope.timeline.add(TweenMax.to(carScreen, 0.75, {alpha:0}), "-=1");
+
+        scope.timeline.add("end");
+        scope.timeline.repeat(-1);
+      }
 
       function handleAnimationTabClick(animation, wasHumanClick) {
         scope.timeline.seek(animation.label, false);
       }
+    }
+  };
+});
+
+'use strict';
+
+angular.module('apiExampleCardDirective', [])
+
+.constant('apiExampleCardTemplatePath', hack.rootPath + '/dist/templates/components/api-example-card/api-example-card.html')
+
+/**
+ * @ngdoc directive
+ * @name apiExampleCard
+ * @requires apiExampleCardTemplatePath
+ * @param {object} example
+ * @description
+ *
+ * A panel used for displaying platform-specific examples of a single API call.
+ */
+.directive('apiExampleCard', function (apiExampleCardTemplatePath) {
+  return {
+    restrict: 'E',
+    scope: {
+      apiItem: '='
+    },
+    templateUrl: apiExampleCardTemplatePath,
+    link: function (scope, element, attrs) {
+      scope.handleTabClick = function (platform) {
+        scope.apiItem.HackExamples.currentPlatform = platform;
+      };
     }
   };
 });
@@ -1195,36 +1235,6 @@ angular.module('apiListDirective', [])
       scope.$watch('category', function () {
         scope.apiListState.selectedItemId = null;
       });
-    }
-  };
-});
-
-'use strict';
-
-angular.module('apiExampleCardDirective', [])
-
-.constant('apiExampleCardTemplatePath', hack.rootPath + '/dist/templates/components/api-example-card/api-example-card.html')
-
-/**
- * @ngdoc directive
- * @name apiExampleCard
- * @requires apiExampleCardTemplatePath
- * @param {object} example
- * @description
- *
- * A panel used for displaying platform-specific examples of a single API call.
- */
-.directive('apiExampleCard', function (apiExampleCardTemplatePath) {
-  return {
-    restrict: 'E',
-    scope: {
-      apiItem: '='
-    },
-    templateUrl: apiExampleCardTemplatePath,
-    link: function (scope, element, attrs) {
-      scope.handleTabClick = function (platform) {
-        scope.apiItem.HackExamples.currentPlatform = platform;
-      };
     }
   };
 });
@@ -1512,6 +1522,31 @@ angular.module('apiTryItCardDirective', [])
   };
 });
 
+// /dist/components/side-menu/side-menu-directive.js
+
+hackApp.directive('sideMenu', function( debounce ){
+  return {
+    restrict : 'A',
+    link : function( scope, element, attrs ){
+      var $window = $(window);
+      var origElOffset = element.offset().top;
+
+      var addFixedClass = debounce( function(){
+        var winOffset = $window.scrollTop();
+        var elOffset = element.offset().top;
+
+        if( winOffset > elOffset ){
+          element.addClass('fixed');
+        } else if ( origElOffset >= elOffset ){
+          element.removeClass('fixed');
+        }
+      }, 10);
+
+      $window.scroll( addFixedClass );
+    }
+  }
+});
+
 'use strict';
 
 angular.module('apiDocumentationController', [])
@@ -1523,7 +1558,8 @@ angular.module('apiDocumentationController', [])
  *
  * Controller for the API Documentation page.
  */
-.controller('ApiDocumentationCtrl', function () {
+.controller('ApiDocumentationCtrl', function ($scope, $state, $rootScope) {
+  // do stuff
 });
 
 'use strict';
