@@ -43,11 +43,18 @@ body {
   }
 }
 
-p, span, a {
-  font-family: $font-family-light;
+p, span {
+  font-family: $font-family-source;
+  font-size: 20px;
+
+  a {
+    font-family: $font-family-source;
+    font-size: 20px;
+  }
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-light;
   text-transform: uppercase;
   text-align: left;
   font-weight: normal;
@@ -166,6 +173,10 @@ header{
     color: #333;
     height: 100%;
     background: $white;
+
+    .inner-content-area{
+      font-family: $font-family-source;
+    }
   }
 
   .inner-content-area {

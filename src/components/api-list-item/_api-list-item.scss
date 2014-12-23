@@ -84,6 +84,7 @@ li[api-list-item].none-selected .api-list-item-header {
     border-radius: $border-radius;
     text-shadow: 0 2px 2px #333;
     padding: 5px 0;
+    font-family: $font-family-light;
   }
 
   .route {
@@ -92,6 +93,7 @@ li[api-list-item].none-selected .api-list-item-header {
     margin-left: $verb-margin-right;
     font-size: 22px;
     padding-top: 8px;
+    font-family: $font-family-light;
   }
 
   .name {
@@ -133,6 +135,7 @@ li[api-list-item].none-selected .api-list-item-header {
     overflow-y: auto;
     border: 2px solid $gray-11;
     font-size: 20px;
+    font-family: $font-family-source;
 
     div{
       margin: 25px 50px;
