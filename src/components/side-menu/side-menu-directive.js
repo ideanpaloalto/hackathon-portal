@@ -5,11 +5,15 @@ hackApp.directive('sideMenu', function( debounce ){
     restrict : 'A',
     link : function( scope, element, attrs ){
       var $window = $(window);
-      var origElOffset = element.offset().top;
+      var origElOffset = null;
 
       var addFixedClass = debounce( function(){
         var winOffset = $window.scrollTop();
         var elOffset = element.offset().top;
+        
+        if( !origElOffset ){
+          origElOffset = elOffset;
+        }
 
         if( winOffset > elOffset ){
           element.addClass('fixed');
