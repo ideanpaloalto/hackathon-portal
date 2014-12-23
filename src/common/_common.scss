@@ -1,0 +1,232 @@
+$scrollbar-color-gray: #A0A2A5;
+
+@mixin code-font() {
+  font-family: $code-font-stack;
+}
+
+.non-bulleted-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+
+  li {
+    display: inline-block;
+  }
+}
+
+div, h1, h2, h3, h4, h5, ul, li, ol, dl, p, hr {
+  margin: 0; padding: 0;
+}
+
+html{
+  background-color: $body-background-color;
+  box-sizing: border-box;
+  background: url(../images/demo_portal_bg.jpg);
+  height: 100%;
+}
+
+*, *:before, *:after{
+  box-sizing: inherit;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  font-family: $font-family-light;
+  font-size: $body-font-size;
+  color: $body-color;
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-color-gray;
+    outline: none;
+  }
+}
+
+p, span, a {
+  font-family: $font-family-light;
+}
+
+h1, h2, h3, h4 {
+  text-transform: uppercase;
+  text-align: left;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: $h1-font-size;
+}
+
+h2 {
+  font-size: $h2-font-size;
+}
+
+h3 {
+  font-size: $h3-font-size;
+}
+
+h4 {
+  font-size: $h4-font-size;
+}
+
+a,
+a:active,
+a:hover,
+a:visited {
+  text-decoration: none;
+}
+
+textarea, input {
+  @include code-font();
+  margin: 0;
+  padding: $input-padding;
+  border-width: 0;
+  background-color: $code-input-background-color;
+  white-space: pre;
+  font-size: 20px;
+}
+
+button {
+  height: $button-height;
+  line-height: $button-height;
+  margin: 0;
+  padding: 0 16px;
+  border-width: 0;
+  border-radius: 0;
+  background-color: $button-active-background-color;
+  color: $button-active-color;
+  text-transform: uppercase;
+}
+
+button[disabled] {
+  background-color: $button-inactive-background-color;
+  color: $button-inactive-color;
+}
+
+[hljs]>pre {
+  margin: 0;
+  padding: 0 $code-padding;
+  overflow: auto;
+}
+
+[hljs]>pre>code {
+  display: block;
+  overflow: visible;
+  padding: $code-padding 0;
+}
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#route-view{
+}
+
+/**********************************
+*** HEADER
+**********************************/
+header{
+  width: 1852px;
+  height: 100px;
+  margin: 0 auto;
+  padding: 25px 0;
+  position: relative;
+
+  h1#ericsson-logo-text{
+    font-size: 55px;
+    font-weight: bold;
+    color: $white;
+  }
+
+  #ericsson-logo-icon{
+    display: block;
+    width: 46px;
+    height: 60px;
+    background: url(../images/ericsson_logo_white.svg);
+    position: absolute;
+    top: 35px;
+    right: 0;
+  }
+}
+
+/**********************************
+*** CONTENT AREA
+**********************************/
+.content-area {
+  position: relative;
+  width: 1852px;
+  margin: 0 auto;
+  min-height: 500px;
+  
+  &#main-content{
+    height: 100%;
+    color: #333;
+    height: 100%;
+    background: $white;
+  }
+
+  .inner-content-area {
+    background-color: $route-view-background-color;
+    position: relative;
+    float: right;
+    clear: right;
+    width: calc(100% - #{$side-menu-width});
+    padding: 0 50px;
+  }
+
+  .inner-content-area>h1 {
+    font-size: 55px;
+    margin: 30px 0;
+    text-align: left;
+  }
+}
+
+.content-area > .tabs {
+  position: absolute;
+  bottom: 34px;
+
+  .tab {
+    width: calc(25% - 15px);
+  }
+}
+
+.tabs {
+  @extend .non-bulleted-list;
+}
+
+/* Clearfix */
+.tabs:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tab {
+  display: block;
+  float: left;
+  width: calc(33.33%);
+  height: $category-tab-height;
+  font-size: $tab-font-size;
+  cursor: pointer;
+  vertical-align: top;
+  text-transform: uppercase;
+  text-align: center;
+  overflow: hidden;
+  transition: $hover-transition;
+  padding-top: 15px;
+
+  &:hover{
+    color: $accent-magenta;
+  }
+}
+
+.tab.selected {
+  color: $accent-magenta;
+  background-color: $gray-10;
+}
+
+.tab:first-child {
+  margin-left: 0;
+}

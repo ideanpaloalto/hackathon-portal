@@ -1,0 +1,126 @@
+// src/components/side-menu/_side-menu.scss
+
+/**********************************
+*** SIDE MENU
+**********************************/
+ul.side-menu {
+  @extend .non-bulleted-list;
+  float: left;
+  width: $side-menu-width;
+  margin: 0;
+  background-color: $side-menu-background-color;
+  color: #fff;
+  min-height: 100%;
+  min-height: 100vh;
+  font-size: $side-menu-link-font-size;
+
+  &.fixed{
+    position: fixed;
+    top: 0;
+    z-index: 10;
+  }
+
+  li {
+    display: block;
+    width: $side-menu-width;
+    margin: 35px 0;
+    padding: 0;
+
+    ul {
+      width: $side-menu-width;
+    }
+
+    .selected {
+      color: $item-active-color;
+      border: none;
+
+      &:before {
+        border: none;
+        transition: $hover-transition;
+        background: $accent-magenta;
+      }
+    }
+  }
+
+  .divider {
+    width: 80%;
+    position: relative;
+    border-top: 1px solid $gray-7;
+    border-bottom: 1px solid $gray-5;
+    border-width: $divider-border-width;
+    height: 2px;
+    max-height: 2px;
+    margin: 35px auto;
+  }
+
+  .side-menu-header {
+
+    h3 {
+    text-align: center;
+    font-size: $side-menu-header-font-size;
+    cursor: pointer;
+    transition: $hover-color-transition;
+    width: 100%;
+
+      &.selected {
+        color: $link-hover-color;
+      }
+
+      &:hover {
+        color: $link-hover-color;
+        transition: $hover-color-transition;
+      }
+    }
+  }
+
+  ul.api-documentation-categories {
+    @extend .non-bulleted-list;
+    margin-left: 93px;
+    
+    li {
+      text-transform: uppercase;
+      transition: $hover-transition;
+
+      p {
+        display: inline;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: $accent-magenta;
+        transition: $hover-transition;
+
+        &:not(&.selected):before{
+          border: none;
+        }
+
+        &:before {
+          border: none;
+          transition: $hover-transition;
+          background: $accent-magenta;
+        }
+      }
+      
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: 20px;
+        border-radius: 5px;
+        left: -5px;
+        transition: $hover-transition;
+      }
+
+      &:not(&.selected):before{
+        border: 1px solid $white;
+      }
+
+      .selected {
+        color: $item-active-color;
+      }
+    }
+  } // ul.api-documentation-categories { ... }
+
+}
+

@@ -1,0 +1,32 @@
+<div id="image-panel" >
+  <div id="hero-screen"></div>
+
+  <div class="question-set">
+    <h1 class="main">Security and governance in an unsafe world</h1>
+    <h4 class="sub">Cloud with native forensics and compliance capability - on a global/local scale</h4>
+  </div>
+
+  <div class="question-set">
+    <h1 class="main">Security and governance in an unsafe world</h1>
+    <h4 class="sub">Cloud with native forensics and compliance capability - on a global/local scale</h4>
+  </div>
+
+  <div class="question-set">
+    <h1 class="main">Security and governance in an unsafe world</h1>
+    <h4 class="sub">Cloud with native forensics and compliance capability - on a global/local scale</h4>
+  </div>
+
+  <div class="question-set">
+    <h1 class="main">Security and governance in an unsafe world</h1>
+    <h4 class="sub">Cloud with native forensics and compliance capability - on a global/local scale</h4>
+  </div>
+</div>
+
+<ul id="slider-dots">
+  <li ng-repeat="animation in hackState.animations"
+      ng-click="hackState.handleAnimationTabClick(animation, true)"
+      ng-class="{selected: animation.label === selectedLabel}"
+      class="slider-dot">
+      <span ng-class="{ 'invis-dot' : animation.label === selectedLabel }">{{scope.selectedLabel}}</span>
+  </li>
+</ul>

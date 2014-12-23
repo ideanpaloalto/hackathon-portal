@@ -1,0 +1,22 @@
+$platform-tab-height: 50px;
+$platform-tab-border-width: 10px;
+$platform-tab-top-margin: 0px;
+
+$example-code-margin-top: 10px;
+
+api-example-card {
+  display: block;
+}
+
+api-example-card>[hljs]>pre {
+  height: calc(100% - #{$platform-tab-height + $platform-tab-border-width + $platform-tab-top-margin + $example-code-margin-top});
+}
+
+.platform-tabs {
+}
+
+.platform-tab {
+  height: $platform-tab-height;
+  background-color: $gray-10;
+  border-bottom-width: $platform-tab-border-width;
+}
