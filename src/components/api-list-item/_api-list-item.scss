@@ -4,7 +4,7 @@ $api-list-item-body-content-margin-top: 14px;
 $api-list-item-body-content-padding-bottom: 35px;
 $api-list-item-body-content-padding-top: 34px - $api-list-item-body-content-margin-top;
 
-$verb-width: 100px;
+$verb-width: 120px;
 $verb-margin-right: 20px;
 
 $card-tab-height: 50px;
@@ -76,26 +76,29 @@ li[api-list-item].none-selected .api-list-item-header {
   .verb {
     float: left;
     width: $verb-width;
-    font-size: 16px;
+    font-size: 22px;
     color: $white;
     background-color: $verb-inactive-background-color;
     text-align: center;
     transition: color 0.15s, background-color 0.15s;
     border-radius: $border-radius;
-    text-shadow: 0 1px 3px $gray-5;
+    text-shadow: 0 2px 2px #333;
+    padding: 5px 0;
   }
 
   .route {
-    @include code-font();
+    font-weight: bold;
     float: left;
     margin-left: $verb-margin-right;
     font-size: 22px;
+    padding-top: 8px;
   }
 
   .name {
+    font-family: $font-family-regular;
     position: absolute;
     right: 0;
-    padding-left: 20px;
+    padding: 6px 0 0 20px;
     font-size: 25px;
 
     &:after {
@@ -129,6 +132,7 @@ li[api-list-item].none-selected .api-list-item-header {
     overflow-x: visible;
     overflow-y: auto;
     border: 2px solid $gray-11;
+    font-size: 20px;
 
     div{
       margin: 25px 50px;

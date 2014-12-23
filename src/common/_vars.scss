@@ -1,9 +1,12 @@
 // $root-path: '/hackathon-portal';
 $root-path: '';
 
-// GENERAL
-$font-family: 'Montserrat', sans-serif;
+
+// FONT FAMILIES
+$font-family-light: 'Montserrat Light', 'Montserrat', sans-serif;
+$font-family-regular: 'Montserrat', sans-serif;
 $ericsson-font: 'ericsson_capitalregular', sans-serif;
+$code-font-stack: Consolas, Monaco, 'Andale Mono', monospace;
 
 
 // COLORS
@@ -29,7 +32,6 @@ $gray-11:rgba(223,223,223,1); // #dfdfdf
 
 
 // COLOR ASSIGNMENTS
-$code-font-stack: Consolas, Monaco, 'Andale Mono', monospace;
 $code-input-background-color: $gray-1;
 $code-output-background-color: $gray-2;
 
@@ -73,12 +75,13 @@ $banner-header-font-size: 20px;
 $border-radius: 10px;
 
 $h1-font-size: 24px;
-$h2-font-size: 16px;
-$h3-font-size: 14px;
-$h4-font-size: 14px;
+$h2-font-size: 22px;
+$h3-font-size: 20px;
+$h4-font-size: 18px;
 
-$side-menu-width: 300px;
-$side-menu-font-size: 16px;
+$side-menu-width: 462px;
+$side-menu-header-font-size: 30px;
+$side-menu-link-font-size: 25px;
 $side-menu-item-height: 84px;
 
 $category-tab-height: 30px;

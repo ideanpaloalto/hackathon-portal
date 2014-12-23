@@ -166,6 +166,13 @@ table {
   font-weight: normal;
   font-style: normal; }
 
+@font-face {
+  font-family: 'Montserrat Light';
+  src: url('/dist/fonts/montserrat-hairline-webfont.eot');
+  src: url('/dist/fonts/montserrat-hairline-webfont.eot?#iefix') format('embedded-opentype'), url('/dist/fonts/montserrat-hairline-webfont.woff2') format('woff2'), url('/dist/fonts/montserrat-hairline-webfont.woff') format('woff'), url('/dist/fonts/montserrat-hairline-webfont.ttf') format('truetype'), url('/dist/fonts/montserrat-hairline-webfont.svg#montserrathairline') format('svg');
+  font-weight: normal;
+  font-style: normal; }
+
 .non-bulleted-list, .tabs, api-specification-card ul, api-list > ul, ul.side-menu, ul.side-menu ul.api-documentation-categories {
   margin: 0;
   padding: 0;
@@ -180,24 +187,25 @@ div, h1, h2, h3, h4, h5, ul, li, ol, dl, p, hr {
 
 html {
   background-color: black;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  background: url(../images/demo_portal_bg.jpg);
+  height: 100%; }
 
 *, *:before, *:after {
   box-sizing: inherit; }
 
 body {
   width: 100%;
-  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  font-family: 'Montserrat Light', 'Montserrat', sans-serif;
   font-size: 14px;
-  color: #404041;
-  font-weight: lighter; }
+  color: #404041; }
   body::-webkit-scrollbar-thumb {
     background-color: #A0A2A5;
     outline: none; }
 
 p, span, a {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: lighter; }
+  font-family: 'Montserrat Light', 'Montserrat', sans-serif; }
 
 h1, h2, h3, h4 {
   text-transform: uppercase;
@@ -208,13 +216,13 @@ h1 {
   font-size: 24px; }
 
 h2 {
-  font-size: 16px; }
+  font-size: 22px; }
 
 h3 {
-  font-size: 14px; }
+  font-size: 20px; }
 
 h4 {
-  font-size: 14px; }
+  font-size: 18px; }
 
 a, a:active, a:hover, a:visited {
   text-decoration: none; }
@@ -225,7 +233,8 @@ textarea, input {
   padding: 6px;
   border-width: 0;
   background-color: #eff8ff;
-  white-space: pre; }
+  white-space: pre;
+  font-size: 20px; }
 
 button {
   height: 35px;
@@ -257,9 +266,6 @@ button[disabled] {
   display: table;
   clear: both; }
 
-#route-view {
-  height: 100%; }
-
 /**********************************
 *** HEADER
 **********************************/
@@ -267,10 +273,20 @@ header {
   width: 1852px;
   height: 100px;
   margin: 0 auto;
-  padding: 25px 0; }
+  padding: 25px 0;
+  position: relative; }
   header h1#ericsson-logo-text {
     font-size: 55px;
+    font-weight: bold;
     color: white; }
+  header #ericsson-logo-icon {
+    display: block;
+    width: 46px;
+    height: 60px;
+    background: url(../images/ericsson_logo_white.svg);
+    position: absolute;
+    top: 35px;
+    right: 0; }
 
 /**********************************
 *** CONTENT AREA
@@ -283,13 +299,14 @@ header {
   .content-area#main-content {
     height: 100%;
     color: #333;
-    height: 100%; }
+    height: 100%;
+    background: white; }
   .content-area .inner-content-area {
     background-color: white;
     position: relative;
     float: right;
     clear: right;
-    width: calc(100% - 300px);
+    width: calc(100% - 462px);
     padding: 0 50px; }
   .content-area .inner-content-area > h1 {
     font-size: 55px;
@@ -366,23 +383,26 @@ li[api-list-item].none-selected .api-list-item-header {
     line-height: 40px; }
   .api-list-item-header .verb {
     float: left;
-    width: 100px;
-    font-size: 16px;
+    width: 120px;
+    font-size: 22px;
     color: white;
     background-color: #f8c4d7;
     text-align: center;
     transition: color 0.15s, background-color 0.15s;
     border-radius: 10px;
-    text-shadow: 0 1px 3px #333333; }
+    text-shadow: 0 2px 2px #333;
+    padding: 5px 0; }
   .api-list-item-header .route {
-    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    font-weight: bold;
     float: left;
     margin-left: 20px;
-    font-size: 22px; }
+    font-size: 22px;
+    padding-top: 8px; }
   .api-list-item-header .name {
+    font-family: 'Montserrat', sans-serif;
     position: absolute;
     right: 0;
-    padding-left: 20px;
+    padding: 6px 0 0 20px;
     font-size: 25px; }
     .api-list-item-header .name:after {
       content: "+";
@@ -409,7 +429,8 @@ li[api-list-item].none-selected .api-list-item-header {
     height: calc(100% - 138px);
     overflow-x: visible;
     overflow-y: auto;
-    border: 2px solid #dfdfdf; }
+    border: 2px solid #dfdfdf;
+    font-size: 20px; }
     .api-list-item-body api-specification-card div, .api-list-item-body api-example-card div, .api-list-item-body api-try-it-card div {
       margin: 25px 50px; }
   .api-list-item-body .card-tabs .card-tab {
@@ -610,14 +631,12 @@ api-list:after {
   position: relative;
   width: 100%;
   height: 600px;
-  color: #ffffff;
-  background-color: #040404; }
+  color: #ffffff; }
   #banner .hero {
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 0;
-    background-color: black; }
+    z-index: 0; }
   #banner #image-panel {
     font-family: 'ericsson_capitalregular', sans-serif;
     position: absolute;
@@ -648,7 +667,6 @@ api-list:after {
       left: 0px;
       width: 100%;
       height: 100%;
-      background-color: black;
       opacity: 0.7;
       z-index: 1; }
   #banner ul#slider-dots {
@@ -669,11 +687,10 @@ api-list:after {
       #banner ul#slider-dots li.slider-dot span.invis-dot {
         display: inline-block;
         position: relative;
-        top: 4px;
-        left: 4px;
-        width: 20px;
-        height: 20px;
-        border: 2px solid black;
+        top: 6px;
+        left: 6px;
+        width: 16px;
+        height: 16px;
         border-radius: 9px;
         background: #d51b5d;
         transition: all 0.25s ease; }
@@ -683,23 +700,24 @@ api-list:after {
 **********************************/
 ul.side-menu {
   float: left;
-  width: 300px;
+  width: 462px;
   margin: 0;
   background-color: #262223;
   color: #fff;
   min-height: 100%;
-  min-height: 100vh; }
+  min-height: 100vh;
+  font-size: 25px; }
   ul.side-menu.fixed {
     position: fixed;
     top: 0;
     z-index: 10; }
   ul.side-menu li {
     display: block;
-    width: 300px;
+    width: 462px;
     margin: 35px 0;
     padding: 0; }
     ul.side-menu li ul {
-      width: 300px; }
+      width: 462px; }
     ul.side-menu li .selected {
       color: #d51b5d;
       border: none; }
@@ -718,8 +736,7 @@ ul.side-menu {
     margin: 35px auto; }
   ul.side-menu .side-menu-header h3 {
     text-align: center;
-    font-weight: lighter;
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
     transition: color 0.25s ease;
     width: 100%; }
@@ -729,7 +746,7 @@ ul.side-menu {
       color: #d51b5d;
       transition: color 0.25s ease; }
   ul.side-menu ul.api-documentation-categories {
-    margin-left: 62px; }
+    margin-left: 93px; }
     ul.side-menu ul.api-documentation-categories li {
       text-transform: uppercase;
       transition: all 0.15s ease; }

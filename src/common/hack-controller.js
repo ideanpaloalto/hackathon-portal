@@ -25,15 +25,16 @@ angular.module('hackController', [])
   $scope.myState = $state;
 
   $rootScope.$on('$stateChangeSuccess', handleStateChangeSuccess);
-
+  console.log($state.name);
   $scope.hackState.handleSideBarClick = handleSideBarClick;
   $scope.hackState.handleCategoryTabClick = handleCategoryTabClick;
+  $scope.hackState.handleSideMenuHeaderClick = handleSideMenuHeaderClick;
 
   // ---  --- //
 
   function handleStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     if (toState.name === 'api-documentation') {
-      $rootScope.isSelected = true;
+      $rootScope.hackState.isSelected = 'api-documentation';
       $state.go($rootScope.defaultCategory.ref);
       return;
     }
@@ -45,6 +46,7 @@ angular.module('hackController', [])
 
       if (toState.name.indexOf(link.ref) == 0) {
         $scope.hackState.sideBarSelectedLink = link.ref;
+        $scope.hackState.isSelected = link.ref;
         break;
       }
     }
@@ -53,22 +55,35 @@ angular.module('hackController', [])
   }
 
   function handleSideBarClick(link) {
-    console.log('Side bar item click');
-
     var targetState = link.ref;
 
-    if (link.ref === 'api-documentation')
+    if (link.ref === 'api-documentation') {
       targetState = $rootScope.defaultCategory.ref;
+      $scope.hackState.isSelected = 'api-documentation';
+    } else {
+      $scope.hackState.isSelected = targetState;
+    }
 
     $state.go(targetState);
   }
 
-  function handleCategoryTabClick(category) {
-    console.log('Category tab click');
+  function handleCategoryTabClick( item, category ){
+    $scope.hackState.isSelected = item.ref;
 
     $rootScope.selectedApiCategory = category.id;
 
     // Transition to the API documentation route/state
     $state.go('api-documentation.' + category.id);
+  }
+
+  function handleSideMenuHeaderClick( item ){
+    $scope.hackState.isSelected = item.ref;
+    console.log( 'side menu header clicked:', $scope.hackState.isSelected );
+
+    if( item.ref === 'api-documentation' ){
+      $state.go('api-documentation.know-driver');
+    }
+
+    return;
   }
 });

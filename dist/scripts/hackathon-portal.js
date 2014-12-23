@@ -404,19 +404,20 @@ angular.module('hackController', [])
   $scope.myState = $state;
 
   $rootScope.$on('$stateChangeSuccess', handleStateChangeSuccess);
-
+  console.log($state.name);
   $scope.hackState.handleSideBarClick = handleSideBarClick;
   $scope.hackState.handleCategoryTabClick = handleCategoryTabClick;
+  $scope.hackState.handleSideMenuHeaderClick = handleSideMenuHeaderClick;
 
   // ---  --- //
 
   function handleStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
     if (toState.name === 'api-documentation') {
-      $rootScope.isSelected = true;
+      $rootScope.hackState.isSelected = 'api-documentation';
       $state.go($rootScope.defaultCategory.ref);
       return;
     }
-
+    
     $scope.myState = toState;
 
     for (var i = 0; i < sideBarLinks.length; i++) {
@@ -424,6 +425,7 @@ angular.module('hackController', [])
 
       if (toState.name.indexOf(link.ref) == 0) {
         $scope.hackState.sideBarSelectedLink = link.ref;
+        $scope.hackState.isSelected = link.ref;
         break;
       }
     }
@@ -432,23 +434,36 @@ angular.module('hackController', [])
   }
 
   function handleSideBarClick(link) {
-    console.log('Side bar item click');
-
     var targetState = link.ref;
 
-    if (link.ref === 'api-documentation')
+    if (link.ref === 'api-documentation') {
       targetState = $rootScope.defaultCategory.ref;
+      $scope.hackState.isSelected = 'api-documentation';
+    } else {
+      $scope.hackState.isSelected = targetState;
+    }
 
     $state.go(targetState);
   }
 
-  function handleCategoryTabClick(category) {
-    console.log('Category tab click');
+  function handleCategoryTabClick( item, category ){
+    $scope.hackState.isSelected = item.ref;
 
     $rootScope.selectedApiCategory = category.id;
 
     // Transition to the API documentation route/state
     $state.go('api-documentation.' + category.id);
+  }
+
+  function handleSideMenuHeaderClick( item ){
+    $scope.hackState.isSelected = item.ref;
+    console.log( 'side menu header clicked:', $scope.hackState.isSelected );
+
+    if( item.ref === 'api-documentation' ){
+      $state.go('api-documentation.know-driver');
+    }
+
+    return;
   }
 });
 
@@ -1182,6 +1197,50 @@ angular.module('apiExampleCardDirective', [])
 
 'use strict';
 
+angular.module('apiListDirective', [])
+
+.constant('apiListTemplatePath', hack.rootPath + '/dist/templates/components/api-list/api-list.html')
+
+/**
+ * @ngdoc directive
+ * @name apiList
+ * @requires HackApi
+ * @requires apiListTemplatePath
+ * @description
+ *
+ * A footer list used for displaying a list of navigation links.
+ */
+.directive('apiList', function ($rootScope, HackApi, apiListTemplatePath) {
+  return {
+    restrict: 'E',
+    scope: {
+      category: '='
+    },
+    templateUrl: apiListTemplatePath,
+    link: function (scope, element, attrs) {
+      scope.apiListState = {};
+      scope.apiListState.apiData = [];
+      scope.apiListState.selectedItemId = null;
+
+      HackApi.getAllApiData()
+          .then(function (apiData) {
+            scope.apiListState.apiData = apiData;
+
+            if ($rootScope.selectedApi != null) {
+              scope.apiListState.selectedItemId = $rootScope.selectedApi.replace(/_/g, '.');
+              console.log(scope.apiListState.selectedItemId);
+            }
+          });
+
+      scope.$watch('category', function () {
+        scope.apiListState.selectedItemId = null;
+      });
+    }
+  };
+});
+
+'use strict';
+
 angular.module('apiListItemDirective', [])
 
 .constant('apiListItemTemplatePath', hack.rootPath + '/dist/templates/components/api-list-item/api-list-item.html')
@@ -1242,50 +1301,6 @@ angular.module('apiListItemDirective', [])
         
         $state.go(targetRef);
       };
-    }
-  };
-});
-
-'use strict';
-
-angular.module('apiListDirective', [])
-
-.constant('apiListTemplatePath', hack.rootPath + '/dist/templates/components/api-list/api-list.html')
-
-/**
- * @ngdoc directive
- * @name apiList
- * @requires HackApi
- * @requires apiListTemplatePath
- * @description
- *
- * A footer list used for displaying a list of navigation links.
- */
-.directive('apiList', function ($rootScope, HackApi, apiListTemplatePath) {
-  return {
-    restrict: 'E',
-    scope: {
-      category: '='
-    },
-    templateUrl: apiListTemplatePath,
-    link: function (scope, element, attrs) {
-      scope.apiListState = {};
-      scope.apiListState.apiData = [];
-      scope.apiListState.selectedItemId = null;
-
-      HackApi.getAllApiData()
-          .then(function (apiData) {
-            scope.apiListState.apiData = apiData;
-
-            if ($rootScope.selectedApi != null) {
-              scope.apiListState.selectedItemId = $rootScope.selectedApi.replace(/_/g, '.');
-              console.log(scope.apiListState.selectedItemId);
-            }
-          });
-
-      scope.$watch('category', function () {
-        scope.apiListState.selectedItemId = null;
-      });
     }
   };
 });
@@ -1543,22 +1558,8 @@ angular.module('apiDocumentationController', [])
  *
  * Controller for the API Documentation page.
  */
-.controller('ApiDocumentationCtrl', function ($scope, $state) {
-  var url =  $state.current.url;
-  var children = ['/know-driver', '/know-car', '/control-car'];
-  var i = children.indexOf(url);
-  $scope.isSelected;
-
-  if( url === children[i] ){
-    if( children.indexOf(url) >= 0 ){
-      $scope.isSelected = true;
-    } else {
-      $scope.isSelected = false;
-    }
-
-    // console.log(children.indexOf(url) >= 0);
-    // console.log('$scope.isSelected:', $scope.isSelected);
-  }
+.controller('ApiDocumentationCtrl', function ($scope, $state, $rootScope) {
+  // do stuff
 });
 
 'use strict';
