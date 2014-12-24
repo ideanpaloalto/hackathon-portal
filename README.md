@@ -16,7 +16,7 @@ These companion repositories contain sample applications for the three main plat
 This is designed to be hosted using GitHub Pages. But, it can certainly be hosted locally or elsewhere.
 
 If you would like to host this somewhere else, you will need to change the URL path at two places within the portal code:  
-  - src/common/_common.scss
+  - src/common/_vars.scss
   - gulpfile.js
 
 ### Dev Setup
