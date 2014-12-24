@@ -26,4 +26,4 @@ If you would like to host this somewhere else, you will need to change the URL p
 3. `npm install`
 4. `gulp`
 5. Point your browser to: http://localhost:3000/
-6. If you have any issues, be sure to update the 'rootPath' paths in the files noted above from `rootPath = '/hackathon-portal'` to: `rootPath = ''`.
+6. If you have any issues, be sure to update the _'rootPath'_ paths in the files noted above from `rootPath = '/hackathon-portal'` to: `rootPath = ''`, but be sure to change it back before re-committing any changes.
